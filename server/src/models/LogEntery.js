@@ -6,6 +6,7 @@ const LogEntrySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    comments: String,
     description: String,
     image: String,
     rating: {
