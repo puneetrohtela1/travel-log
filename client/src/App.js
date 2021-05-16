@@ -1,25 +1,28 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import LogEntryForm from './LogEntryForm';
-import { listLogEntries, deleteLogEntries } from './API';
+import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import LogEntryForm from "./LogEntryForm";
+import { listLogEntries, deleteLogEntries } from "./API";
 const App = () => {
   const [logEntries, setlogEntries] = useState([]);
   const [showPopup, setshowPopup] = useState({});
   const [addEntryLocation, setaddEntryLocation] = useState(null);
+  const [isUpdate, setUpdate] = useState(false);
+  const [updateData, setUpdateData] = useState();
   const [viewport, setViewport] = useState({
-    width: '100vw',
-    height: '100vh',
+    width: "100vw",
+    height: "100vh",
     latitude: 28.6139,
     longitude: 77.209,
     zoom: 5,
   });
 
-  const getEntries = async () => {
+  const getEntries = useCallback(async () => {
     const logEntries = await listLogEntries();
     console.log(logEntries);
     setlogEntries(logEntries);
-  };
+  }, []);
+
   useEffect(() => {
     getEntries();
   }, []);
@@ -80,14 +83,18 @@ const App = () => {
               {entry.image && <img src={entry.image} alt={entry.title} />}
               <button
                 onClick={async () => {
-                  await deleteLogEntries(entry._id);
+                  // await deleteLogEntries(entry._id);
                   setshowPopup({});
-                  getEntries();
+                  setUpdateData({ ...entry });
                   const { longitude, latitude } = entry;
-                  setaddEntryLocation({
-                    latitude,
-                    longitude,
-                  });
+                  // setaddEntryLocation({
+                  //   latitude,
+                  //   longitude,
+                  // });
+                  setTimeout(() => {
+                    setUpdate(true);
+                  }, 100);
+                  // getEntries();
                 }}
               >
                 Update
@@ -105,6 +112,34 @@ const App = () => {
           ) : null}
         </React.Fragment>
       ))}
+      {isUpdate ? (
+        <Popup
+          latitude={updateData?.latitude}
+          longitude={updateData?.longitude}
+          closeButton={true}
+          closeOnClick={false}
+          onClose={() => {
+            setUpdate(false);
+            setUpdateData();
+            setaddEntryLocation(null);
+          }}
+          anchor="top"
+        >
+          <div className="popup">
+            <LogEntryForm
+              isUpdate={isUpdate}
+              updateData={updateData}
+              onClose={() => {
+                setUpdate(false);
+                setUpdateData();
+                setaddEntryLocation(null);
+                getEntries();
+              }}
+              location={updateData}
+            />
+          </div>
+        </Popup>
+      ) : null}
       {addEntryLocation && (
         <>
           <Marker
@@ -129,6 +164,10 @@ const App = () => {
           >
             <div className="popup">
               <LogEntryForm
+                isUpdate={isUpdate}
+                updateData={updateData}
+                setUpdate={setUpdate}
+                setUpdateData={setUpdateData}
                 onClose={() => {
                   setaddEntryLocation(null);
                   getEntries();

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:1337';
+const API_URL = "http://localhost:1337";
 
 export async function listLogEntries() {
   const res = await fetch(`${API_URL}/api/logs`);
@@ -7,9 +7,9 @@ export async function listLogEntries() {
 
 export async function createLogEntries(entry) {
   const res = await fetch(`${API_URL}/api/logs`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'content-type': 'application/json',
+      "content-type": "application/json",
     },
     body: JSON.stringify(entry),
   });
@@ -18,7 +18,18 @@ export async function createLogEntries(entry) {
 
 export async function deleteLogEntries(id) {
   const res = await fetch(`${API_URL}/api/logs/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
+  });
+  return res.json();
+}
+
+export async function updateLogEntries(id, entry) {
+  const res = await fetch(`${API_URL}/api/logs/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(entry),
   });
   return res.json();
 }
