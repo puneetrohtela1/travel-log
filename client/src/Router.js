@@ -18,6 +18,9 @@ const Router = () => {
               <Link to="/About">About</Link>
             </li>
             <li style={styles.floatRight}>
+              <Link to="/Map">Map</Link>
+            </li>
+            <li style={styles.floatRight}>
               <Link to="/">Home</Link>
             </li>
           </ul>

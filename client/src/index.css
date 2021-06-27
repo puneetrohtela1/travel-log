@@ -7,9 +7,6 @@ body {
   width: 100vw;
   overflow: hidden;
   box-sizing: border-box;
-  background-image: url("./Images/4.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .marker {

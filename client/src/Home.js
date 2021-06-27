@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Route, Switch, Link } from "react-router-dom";
-
+import image from './Images/4.jpg';
 const Home = () => {
   return (
     <div
@@ -11,7 +11,11 @@ const Home = () => {
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
-        paddingTop: "10%",
+        height:"100vh",
+        backgroundImage: `url(${image})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+
       }}
     >
       <h1
