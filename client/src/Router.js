@@ -2,11 +2,11 @@ import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 
 import App from "./App";
-
+import Home from "./Home";
 const Router = () => {
   return (
     <>
-      <div>
+      <div style={{zIndex:11}}>
         <nav>
           <ul>
             <li id="logo">
@@ -24,7 +24,8 @@ const Router = () => {
         </nav>
       </div>
       <Switch>
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/Map" component={App} />
         <Route exact path="/About" component={() => <h1>Hello</h1>} />
         <Route component={() => <h1>404 Page Not Found</h1>} />
       </Switch>
