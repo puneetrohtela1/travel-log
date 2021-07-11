@@ -3,15 +3,18 @@ import { Route, Switch, Link } from "react-router-dom";
 
 import App from "./App";
 import Home from "./Home";
+import About from "./About";
+import Logo from "./Images/logo.png";
+
 const Router = () => {
   return (
     <>
-      <div style={{zIndex:11}}>
+      <div style={styles.header}>
         <nav>
           <ul>
             <li id="logo">
-              <Link to="/">
-                <img alt="Logo" />
+              <Link to="/" style={styles.logo}>
+                <img alt="Logo" src={Logo} />
               </Link>
             </li>
             <li style={styles.floatRight}>
@@ -29,7 +32,7 @@ const Router = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Map" component={App} />
-        <Route exact path="/About" component={() => <h1>Hello</h1>} />
+        <Route exact path="/About" component={About} />
         <Route component={() => <h1>404 Page Not Found</h1>} />
       </Switch>
     </>
@@ -42,4 +45,10 @@ const styles = {
   floatRight: {
     float: "right",
   },
+  header: {
+    zIndex: 11,
+    position: "absolute",
+    width: "100%",
+  },
+  logo: { paddingTop: "6px", paddingBottom: "4px" },
 };

@@ -3,9 +3,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  height: auto;
+  width: '100vw';
+  overflow: 'scroll-y';
   box-sizing: border-box;
 }
 
@@ -81,6 +81,7 @@ ul {
 
 li {
   float: left;
+  height: 100%;
 }
 
 li:last-child {
